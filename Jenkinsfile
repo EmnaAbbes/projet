@@ -9,39 +9,34 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/EmnaAbbes/projet.git'
-            }
-        }
 
         stage('Build Backend JAR') {
             steps {
                 dir('backend') {
-                    sh 'mvn clean package -DskipTests'
+                    bat 'mvn clean package -DskipTests'
                 }
             }
         }
 
         stage('Build Docker Images') {
             steps {
-                sh "docker build -t ${BACKEND_IMAGE}:latest ./backend"
-                sh "docker build -t ${FRONTEND_IMAGE}:latest ./frontend"
+                bat "docker build -t %BACKEND_IMAGE%:latest ./backend"
+                bat "docker build -t %FRONTEND_IMAGE%:latest ./frontend"
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
-                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-                sh "docker push ${BACKEND_IMAGE}:latest"
-                sh "docker push ${FRONTEND_IMAGE}:latest"
+                bat "echo %DOCKERHUB_CREDENTIALS_PSW% | docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin"
+                bat "docker push %BACKEND_IMAGE%:latest"
+                bat "docker push %FRONTEND_IMAGE%:latest"
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker-compose down'
-                sh 'docker-compose up -d'
+                bat 'docker-compose down'
+                bat 'docker-compose up -d'
             }
         }
     }
