@@ -1,0 +1,6 @@
+iset\master\miniprojet_spring\MiniProjetSpringApplication.class
+iset\master\miniprojet_spring\ProduitService.class
+iset\master\miniprojet_spring\ProduitNotFoundException.class
+iset\master\miniprojet_spring\ProduitController.class
+iset\master\miniprojet_spring\Produit.class
+iset\master\miniprojet_spring\ProduitRepository.class
