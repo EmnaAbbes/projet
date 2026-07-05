@@ -12,7 +12,7 @@ pipeline {
 
         stage('Build Backend JAR') {
             steps {
-                dir('backend') {
+                dir('miniProjet_Spring') {
                     bat 'mvn clean package -DskipTests'
                 }
             }
@@ -20,8 +20,8 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-                bat "docker build -t %BACKEND_IMAGE%:latest ./backend"
-                bat "docker build -t %FRONTEND_IMAGE%:latest ./frontend"
+                bat "docker build -t %BACKEND_IMAGE%:latest ./miniProjet_Spring"
+                bat "docker build -t %FRONTEND_IMAGE%:latest ./front-nginx"
             }
         }
 
